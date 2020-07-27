@@ -1,0 +1,156 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+{% load tienda_extras %}
+
+{% block custom_headers %}
+<script src="{% static 'js/controles_despacho.js' %}"></script>
+<style type="text/css">
+  .container{
+    min-height: 80vh;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="layout__content">
+    <main class="layout__main" id="main" style="">
+        <article class="layout__article">
+          <h1 class="layout__title p-4">
+            <span>Elige tu método de envío</span>
+          </h1>
+          <ul class="nav nav-tabs flex-column flex-sm-row opciones-despacho">
+            <li class="flex-sm-fill text-sm-center nav-link opcion-despacho" onclick="ocultar('envio')">
+                Retiro en tienda
+            </li>
+            <li class="flex-sm-fill text-sm-center nav-link opcion-despacho" onclick="ocultar('retiro')">
+              Despacho domicilio
+            </li>
+          </ul>
+          <!-- Formulario de retiro -->
+          <div id="retiro" style="display: none">  
+            <form accept-charset="UTF-8" action="{% url 'tipo_despacho' carro %}retiro/" role="form" id="tipo_despacho" method="POST" name="tipo_despacho"> 
+              {% csrf_token %} 
+              <section>  
+                <legend class="form__radio-group-title">
+                    <h3>Recoger en tienda</h3>
+                </legend>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Fecha Entrega</th>
+                      <th scope="col">Costo</th>
+                      <th scope="col">Selección</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fecha, precio in fechas_retiro %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ fecha }}</td>
+                        <td>$ {% firstof precio 'Gratuito' %}</td>
+                        <td>
+                          <input type="radio" id="fechaRetiro" name="fecha_retiro" value="{{ fecha }};{{ precio }}" onclick="obtenerFecha('fecha_retiro')">
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                <legend class="form__radio-group-title">
+                    <h3>Datos de retiro</h3>
+                </legend>  
+                <div class="formulario-despacho">  
+                  {% for field in form_retiro.visible_fields %}
+                    <div class="form-group d-flex flex-column">
+                      <label for="">{{ field.label_tag }}</label>
+                      {{ field }}
+                    </div>
+                  {% endfor %}
+                  {% for field in form_retiro.hidden_fields %}
+                    <div class="form-group d-flex flex-column">
+                      {{ field }}
+                    </div>
+                  {% endfor %}
+                </div>
+              </section>
+              <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary btn-despacho p-2" id="btn-continuar" >
+                  Continuar
+                </button>
+                <a class="btn btn-primary btn-despacho p-2" id="btn-volver"  href="/cuenta/carro-compras">
+                  Volver
+                </a>
+              </div>
+            </form> 
+          </div>
+          <!-- Formulario de envío -->
+          <div id="envio" style="display: none">
+            <section>
+              <legend class="form__radio-group-title">
+                  <h3>Envío a domicilio</h3>
+              </legend>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Fecha Entrega</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Selección</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fecha, precio in fechas_envio %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ fecha }}</td>
+                      <td>$ {% firstof precio 'Gratuito' %}</td>
+                      <td>
+                        <input type="radio" id="fechaEnvio" name="fecha_envio" value="{{ fecha }};{{ precio }}" onclick="obtenerFecha('fecha_envio')">
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <legend class="form__radio-group-title">
+                  <h3>Datos de envío</h3>
+              </legend>
+              <!-- ModelForm Despacho -->
+              <div class="formulario-despacho">  
+              <form accept-charset="UTF-8" action="{% url 'tipo_despacho' carro %}envio/" id="tipo_despacho" method="POST" name="tipo_despacho">
+                {% csrf_token %} 
+                <!-- Campos visibles -->
+                {% for field in form_despacho.visible_fields %}
+                  <div class="form-group d-flex flex-column">
+                    <label for="">{{ field.label_tag }}</label>
+                    {{ field }}
+                  </div>
+                {% endfor %}
+                <!-- Campos invisibles -->
+                {% for field in form_despacho.hidden_fields %}
+                  <div class="form-group d-flex flex-column">
+                    {{ field }}
+                  </div>
+                {% endfor %}
+                <div class="d-flex justify-content-around">
+                  <button type="submit" class="btn btn-primary btn-despacho p-2" id="btn-continuar">
+                    Continuar
+                  </button>
+                  <a class="btn btn-primary btn-despacho p-2" id="btn-volver" href="/cuenta/carro-compras">
+                    Volver
+                  </a>
+              </div>
+            </section>
+            </div>
+          </form>
+          </div>
+          <div class="logo-type logo-placeholder" id="logo-placeholder">
+              <a href="#">
+                  <span>FERME</span>
+              </a>
+          </div>
+        </article>
+    </main>
+  </div>
+</div>
+{% endblock content %}

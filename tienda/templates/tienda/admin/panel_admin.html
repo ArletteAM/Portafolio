@@ -1,0 +1,69 @@
+{% extends 'tienda/admin/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="sub-contenedor d-flex flex-wrap justify-content-center">
+        <!-- Acordion -->
+        <div id="accordion" role="tablist" class="col-lg-7">
+            <div class="card tarjeta">
+                <div class="card-header tarjeta-header d-flex justify-content-between" role="tab" id="headingOne">
+                    <h4><strong>{% block titulo_panel %}{% endblock %}</strong></h4>
+                    <a class="collapsed" data-toggle="collapse" href="#{{ clase_administrada }}" aria-expanded="true" aria-controls="{{ clase_administrada }}">
+                        <i class="icon fas fa-chevron-down"></i>
+                    </a>
+                </div>
+                <div id="{{ clase_administrada }}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="card-body">
+                        <!-- ====== CONTENIDO ====== -->
+                        {% include "tienda/components/messages.html" %}
+
+                        <div class="d-flex justify-content-between">
+                            <!-- Filtros -->
+                            <form action="{% url url_busqueda %}" method="GET" class="form-inline" style="display: inline-flex; align-items: flex-end;">
+                                {% block filtro_1 %}
+                                {% endblock %}
+                                {% block filtro_2 %}
+                                {% endblock %}
+                                {% block filtro_3 %}
+                                {% endblock %}
+                                <button type="submit" class="btn boton-admin-primary mb-2 ml-3" >
+                                    <span><i class="fas fa-search"></i></span>
+                                    Buscar
+                                </button>
+                            </form>
+                            <!-- Agregar producto -->
+                            <div class="mb-2" style="display: inline-flex; align-items: flex-end;" id="btn_agregar">
+                                <a href="{% url url_agregar %}" class="btn btn-success">
+                                    <span class="mr-1"><i class="fas fa-plus-circle"></i></i></span>
+                                    Agregar {{ nombre_clase }}
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Tabla -->
+                        <div class="table-responsive">
+                            <table id="{{ clase_administrada }}Admin" class="table table-hover table-bordered my-3">
+                                {% block headers_tabla %}
+                                {% endblock %}
+                                <tbody>
+                                    {% for clase_administrada in coleccion %}
+                                    <tr>
+                                        {% block filas_tabla %}
+                                        {% endblock %}
+                                        <td>
+                                            <div class="d-flex flex-row">
+                                                {% block botones_administracion %}
+                                                {% endblock %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block extras %}
+        {% endblock %}
+    </div>
+{% endblock %}

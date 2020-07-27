@@ -1,0 +1,72 @@
+{% extends 'tienda/admin/panel_admin.html' %}
+{% load static %}
+{% block oc_active %} active {% endblock %}
+{% block titulo_panel %}
+    Gestión de Órdenes de Compra
+{% endblock %}
+{% block filtro_1 %}
+    <div class="filtro-ordenes-admin mb-2 ml-3">
+        <h6>Fecha:</h6>
+        <input type="date" class="form-control" name="fecha_recepcion">
+    </div>
+{% endblock %}
+{% block filtro_2 %}
+    <div class="filtro-ordenes-admin mb-2 ml-3">
+        <h6>Proveedor:</h6>
+        <select name="proveedor" class="form-control" >
+            <option value="">(seleccione un proveedor)</option>
+            {% for proveedor in proveedores %}
+                <option value="{{ proveedor.id }}">
+                    {{ proveedor.razon_social }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}
+{% block filtro_3 %}
+    <div class="filtro-ordenes-admin mb-2 ml-3">
+        <h6>Estado:</h6>
+        <select class="form-control" name="estado">
+            <option value="">(seleccione un estado)</option>
+            {% for estado in estados %}
+                <option value="{{ estado.0 }}">
+                    {{ estado.1 }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}
+{% block headers_tabla %}
+    <thead class="thead-light">
+        <tr>
+            <th class="header-tabla">Id</th>
+            <th class="header-tabla">Fecha Recepcion</th>
+            <th class="header-tabla">Estado</th>
+            <th class="header-tabla">Proveedor</th>
+            <th >Administrar</th>
+        </tr>
+    </thead>
+{% endblock %}
+{% block filas_tabla %}
+    <th scope="row">{{ clase_administrada.id }}</th>
+    <td >{{ clase_administrada.fecha_recepcion }}</td>
+    <td >{{ clase_administrada.estado }}</td>
+    <td >{{ clase_administrada.proveedor }}</td>
+{% endblock %}
+{% block botones_administracion %}
+    <a href="{% url 'actualizar_orden' clase_administrada.id %}" class="btn btn-warning"
+        data-toggle="tooltip"
+        data-placement="top" title="Modificar Orden">
+        <i class="fas fa-pen"></i>
+    </a>
+    <a href="{% url 'eliminar_orden' clase_administrada.id %}" class="btn btn-danger ml-2"
+        data-toggle="tooltip"
+        data-placement="top" title="Eliminar Orden">
+        <i class="fas fa-trash"></i>
+    </a>
+    <a href="{% url 'recibir_orden' clase_administrada.id %}" class="btn btn-success ml-2"
+        data-toggle="tooltip"
+        data-placement="top" title="Recibir Orden">
+        <i class="fas fa-truck"></i>
+    </a>
+{% endblock %}

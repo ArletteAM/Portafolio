@@ -1,0 +1,88 @@
+{% extends 'tienda/admin/panel_admin.html' %}
+{% load static %}
+{% block proveedores_active %} active {% endblock %}
+{% block titulo_panel %}
+	Gestión de Proveedores
+{% endblock %}
+
+{% block filtro_1 %}
+    <div class="filtro-proveedores-admin mb-2 ml-3">
+        <h6>Razon Social:</h6>
+        <input type="text" class="form-control" name="razon_social">
+    </div>
+{% endblock %}
+
+{% block filtro_2 %}
+{% endblock %}
+
+{% block filtro_3 %}
+    <div class="filtro-proveedores-admin mb-2 ml-3">
+        <h6>Sector Comercial:</h6>
+        <input type="text" class="form-control" name="sector_comercial">
+    </div>
+{% endblock %}
+
+{% block headers_tabla %}
+    <thead class="thead-light">
+        <tr>
+            <th class="header-tabla">Id</th>
+            <th class="header-tabla">Razon Social</th>
+            <th class="header-tabla">Sector Comercial</th>
+            <th class="header-tabla">Direccion</th>
+            <th class="header-tabla">Email</th>
+            <th class="header-tabla">Fono</th>
+            <th >ADMINISTRAR</th>
+        </tr>
+    </thead>
+{% endblock %}
+
+{% block filas_tabla %}
+    <th scope="row">{{ clase_administrada.id }}</th>
+    <th >{{ clase_administrada.razon_social }}</th>
+    <td >{{ clase_administrada.sector_comercial }}</td>
+    <td >{{ clase_administrada.direccion }}</td>
+    <td >{{ clase_administrada.email }}</td>
+    <td >{{ clase_administrada.fono }}</td>
+{% endblock %}
+
+{% block botones_administracion %}
+    <a href="{% url 'actualizar_proveedor' clase_administrada.id %}" class="btn btn-warning"
+        data-toggle="tooltip"
+        data-placement="top" title="Modificar Proveedor">
+        <i class="fas fa-pen"></i>
+    </a>
+    <a href="{% url 'eliminar_proveedor' clase_administrada.id %}" class="btn btn-danger ml-2"
+        data-toggle="tooltip"
+        data-placement="top" title="Eliminar Proveedor">
+        <i class="fas fa-trash"></i>
+    </a>
+{% endblock %}
+
+<!-- 2do Acordion -->
+<div id="accordion" role="tablist" class="col-lg-7">
+    <div class="card tarjeta">
+        <div class="card-header tarjeta-header d-flex justify-content-between" role="tab" id="headingOne">
+            <h4><strong>Recepción de Productos</strong></h4>
+            <a class="collapsed" data-toggle="collapse" href="#recepcion" aria-expanded="true" aria-controls="recepcion">
+                <i class="icon fas fa-chevron-down"></i>
+            </a>
+        </div>
+        <div id="recepcion" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-body">
+                <!-- ====== CONTENIDO ====== -->
+                {% include "tienda/components/messages.html" %}
+                <form action="" method="GET">
+                    <div class="form-inline d-flex flex-wrap">
+                         <div class="filtro-producto-admin mb-2 ml-3">
+                            <h6 class="ml-3 mt-3">ID Orden de Compra:</h6>
+                            <input type="text" class="form-control ml-3 mb-3" name="id">
+                            <button type="submit" class="btn btn-success ml-3 mb-3">Confirmar</button>
+                            <button type="submit" class="btn btn-warning ml-3 mb-3">Pendiente</button>
+                            <button type="submit" class="btn btn-danger ml-3 mb-3">Anular</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

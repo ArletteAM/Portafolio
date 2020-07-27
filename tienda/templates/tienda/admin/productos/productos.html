@@ -1,0 +1,114 @@
+{% extends 'tienda/admin/base.html' %}
+{% load static %}
+{% block titulo %} PRODUCTOS {% endblock titulo %}
+{% block productos_active %} active {% endblock productos_active %}
+{% block content %}
+<div class="sub-contenedor d-flex justify-content-center">
+    <!-- Acordion -->
+    <div id="accordion" role="tablist" class="col-lg-7">
+        <div class="card tarjeta">
+            <div class="card-header tarjeta-header d-flex justify-content-between" role="tab" id="headingOne">
+                <h4><strong>Gestión de Productos</strong></h4>
+                <a class="collapsed" data-toggle="collapse" href="#productos" aria-expanded="true" aria-controls="productos">
+                    <i class="icon fas fa-chevron-down"></i>
+                </a>
+            </div>
+            <div id="productos" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-body">
+                    <!-- ====== CONTENIDO ====== -->
+                    {% include "tienda/components/messages.html" %}
+
+                    <div class="d-flex justify-content-between">
+                        <!-- Filtros -->
+                        <form action="{% url 'obtener_productos' %}" method="GET" class="form-inline" style="display: inline-flex; align-items: flex-end;">
+                            <div class="filtro-producto-admin mb-2 ml-3">
+                                <h6>Nombre:</h6>
+                                <input type="text" class="form-control" name="nombre">
+                            </div>
+
+                            <div class="filtro-producto-admin mb-2 ml-3">
+                                <h6>Marca:</h6>
+                                <select name="marca" class="form-control" >
+                                    <option value="0">----------------</option>
+                                    {% for marca in marcas %}
+                                        <option value="{{ marca.id }}">
+                                            {{ marca.nombre }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="filtro-producto-admin mb-2 ml-3">
+                                <h6>SKU:</h6>
+                                <input type="text" class="form-control" name="sku">
+                            </div>
+
+                            <button type="submit" class="btn boton-admin-primary mb-2 ml-3" >
+                                <span><i class="fas fa-search"></i></span>
+                                Buscar
+                            </button>
+                        </form>
+                        <!-- Agregar producto -->
+                        <div class="mb-2" style="display: inline-flex; align-items: flex-end;">
+                            <a href="{% url 'agregar_producto' %}" class="btn btn-success">
+                                <span class="mr-1"><i class="fas fa-plus-circle"></i></i></span>
+                                Agregar nuevo producto
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Tabla -->
+                    <div class="table-responsive">
+                        <table id="productosAdmin" class="table table-hover table-bordered my-3">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="header-tabla">Id</th>
+                                    <th class="header-tabla">SKU</th>
+                                    <th class="header-tabla">Nombre</th>
+                                    <th class="header-tabla">Marca</th>
+                                    <th class="header-tabla">Stock</th>
+                                    <th class="header-tabla">Stock Crítico</th>
+                                    <th class="header-tabla">Disponibilidad</th>
+                                    <th class="header-tabla">Precio Normal</th>
+                                    <th class="header-tabla">Precio Oferta</th>
+                                    <th class="header-tabla">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for producto in productos %}
+                                <tr>
+                                    <th scope="row">{{ producto.PRODUCTO_ID }}</th>
+                                    <td>{{ producto.SKU }}</td>
+                                    <td>{{ producto.NOMBRE }}</td>
+                                    <td>{{ producto.NOMBRE_MARCA }}</td>
+                                    <td>{{ producto.STOCK }}</td>
+                                    <td>{{ producto.STOCK_CRITICO }}</td>
+                                    <td>{{ producto.DISPONIBILIDAD }}</td>
+                                    <td>{{ producto.PRECIO_NORMAL }}</td>
+                                    <td>{{ producto.PRECIO_OFERTA }}</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <a href="{% url 'actualizar_producto' producto.PRODUCTO_ID %}" class="btn btn-warning"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Modificar producto">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a href="{% url 'eliminar_producto' producto.PRODUCTO_ID %}" class="btn btn-danger ml-2"
+                                                data-toggle="tooltip"
+                                                data-placement="top" title="Eliminar producto">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

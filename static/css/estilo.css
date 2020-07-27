@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css?family=Hepta+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa+One&display=swap');
+
+/* ========================== Colores ======================== */
+:root {
+    --blue: #1f50a5;
+    --yellow: #ffd800;
+    --strong_yellow: #E0A800;
+    --dark: #4c5b5c;
+    --gray: #c8cfcf;
+    --light: #f2f4f7;
+    --white: white;
+    --accent_1: #ff5964;
+    --accent_2: #25ced1;
+}
+
+/* =========================== Global ========================*/
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--light);
+}
+
+.sub-contenedor {
+    margin-top: 4rem;
+}
+
+.contenedor-carrusel {
+    width: 100%;
+}
+
+.marginTop {
+    margin-top: 1rem;
+}
+
+.marginBottom {
+    margin-bottom: 1rem;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-panel {
+    padding-right: 2rem;
+    padding-left: 2rem;
+}
+
+.logo-placeholder{
+    font-size: 15vw!important;
+    justify-content: center;
+    background: var(--white);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+         -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.logo-placeholder>a:hover{
+    text-decoration: none;
+}
+
+.opciones-despacho{
+    border: 0px;
+}
+
+.opcion-despacho{
+    color: var(--blue);
+    border-radius: 0px;
+    padding: none;
+    margin: none;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.opcion-despacho:hover{
+    background-color: var(--strong_yellow);
+    color: var(--light);
+}
+
+.formulario-despacho{
+    justify-content: center;
+    width: 40%;
+    margin: auto;
+    padding-bottom: 25px;
+}
+
+/* ========================== Fuentes ======================= */
+
+.hepta {
+    font-family: 'Hepta Slab', serif;
+}
+
+.hepta-bold {
+    font-family: 'Hepta Slab', serif;
+    font-weight: bold;
+}
+
+.nunito {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+}
+
+.nunito-bold {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.changa-bold{
+    font-family: 'Changa One', cursive;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.logo-type{
+    display: flex;
+    align-items: center;
+    color: var(--blue);
+    font-family: 'Changa One', cursive;
+    font-size: 60px;
+    font-weight: bold;
+}
+.logo-type a{
+    color: var(--blue);
+}
+.logo-type:hover{
+    text-decoration: none;
+    color: var(--blue);
+}
+/* ============================ Header ================================ */
+.header {
+    background-color: var(--white);
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.form-busqueda {
+    display: flex;
+    align-content: center;
+}
+
+.barra-busqueda {
+    display: flex;
+    align-content: center;
+}
+
+.botones-header {
+    color: var(--yellow);
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+    margin-top: 0.5rem;
+}
+
+.texto-boton {
+    color: var(--blue);
+    font-size: 13px;
+    margin-left: 0.5rem;
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.link-header {
+    color: var(--yellow);
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.link-header:focus, .link-header:active, .link-header:hover {
+    color: var(--blue);
+}
+
+.icon-header {
+    font-size: xx-large;
+}
+
+/* ==================== Navbar =========================*/
+.nav{
+    background-color: var(--yellow);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-color: var(--yellow);
+    border-bottom-color: var(--yellow);
+}
+
+.nav>li>a {
+    color: var(--blue);
+    font-size: 16px;
+}
+
+.nav-item {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* ==================== Footer ============================ */
+footer {
+    background-color: var(--yellow);
+    margin-top: 4rem;
+}
+
+.footer-item {
+    color: var(--blue);
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.footer-item p {
+    font-size: 12pt;
+    line-height: 1;
+}
+
+.footer-item a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+#suscribte-btn {
+    background-color: var(--blue);
+}
+
+.redes {
+    display: inline-block;
+}
+
+/* ================= Catalogo Productos ================ */
+
+#producto {
+    background-color: var(--white);
+    border-color: var(--blue);
+}
+
+.producto {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    padding-bottom: 2rem;
+}
+
+.titulo-marca {
+    color: var(--strong_yellow);
+    font-family: 'Nunito', sans-serif;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.nombre-producto {
+    color: var(--blue);
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+}
+
+
+.precio-producto {
+    color: var(--blue);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.disponible {
+    color: var(--blue);
+    font-family: 'Nunito', sans-serif;
+    font-size: 11pt;
+    line-height: 0;
+}
+
+.imagen-producto {
+    border-color: var(--blue);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.contenedor-catalogo {
+    margin-top: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.catalogo {
+}
+
+.filtros-catalogo {
+    margin-left: 4rem;
+    margin-bottom: 3rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.subtitulo-filtrado {
+    color: var(--blue);
+    font-family: 'Nunito', sans-serif;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.boton-filtrado {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.boton-filtrado:hover {
+    background-color: var(--blue);
+    color: var(--yellow);
+}
+
+.sin-productos {
+    font-family: 'Nunito', sans-serif;
+    color: var(--blue);
+}
+
+/* ================= Detalle Producto ================ */
+
+#detalle-producto {
+    border-width: 10px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.titulo-detalle {
+    font-family: 'Nunito', sans-serif;
+    color: var(--blue);
+}
+
+.p-detalle {
+    color: black;
+    font-family: 'Nunito', sans-serif;
+}
+
+/*-------------------------------------------------------------------------------------------- 
+    Prueba Autenticacion
+-------------------------------------------------------------------------------------------- */
+#login-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--dark);
+    margin-top: 3rem;
+}
+
+.boton-login {
+    background-color:  var(--blue);
+    color: var(--white);
+}
+
+.boton-login:hover {
+    background-color:  var(--yellow);
+    color: var(--dark);
+}
+
+.messages-container {
+    font-size: 9pt;
+    max-width: 285px;
+}
+
+/* ================= Carro de Compras ================ */
+#carrito {
+    font-family: 'Nunito', sans-serif;
+    color: var(--dark);
+}
+
+.titulo-carrito {
+    font-weight: bold;
+    padding: 1rem 1rem 0 1rem;
+}
+
+.img-carrito {
+    padding: 2rem;
+}
+
+.producto-carrito {
+    margin-top: 1rem;
+}
+
+.info-carrito {
+    display: inline-flex;
+    margin: 3rem;
+}
+
+.precio-carrito {
+    color: var(--blue);
+    margin-left: 3rem;
+}
+
+.cantidad-carrito {
+    margin-left: 3rem;
+}
+
+.eliminar-carrito {
+    color: var(--accent_1);
+    font-weight: bold;
+}
+
+.eliminar-carrito:link, .eliminar-carrito:visited, 
+    .eliminar-carrito:hover, .eliminar-carrito:active {
+  text-decoration: none;
+  color: var(--accent_1);
+}
+
+.nombre-carrito:link, .nombre-carrito:visited, 
+    .nombre-carrito:hover, .nombre-carrito:active {
+  text-decoration: none;
+  color: var(--dark);
+}
+
+.boton-compra-carrito {
+    width: 180px;
+    background-color: var(--yellow);
+    color: var(--blue);
+}
+
+.boton-compra-carrito:hover {
+    background-color: seagreen;
+    color: var(--white);
+}
+
+.boton-seguir-carrito {
+    width: 180px;
+    background-color: var(--dark);
+    color: var(--white);
+}
+
+.boton-seguir-carrito:hover {
+    background-color: var(--accent_1);
+    color: var(--white);
+}
+
+/* ================= Categoria ================ */
+.titulo-categoria {
+    font-family: 'Changa One', sans-serif;
+    color: var(--blue);
+    text-align: center;
+    margin: 2rem 0 0 0;
+}
+
+.btn-despacho{
+    min-width: 8vw;
+}
+
+.form__radio-group-title{
+    padding-left: 5px;
+    padding-top: 2%;
+    border-bottom-style: dashed;
+    border-bottom-width: 2px;
+}
+
+.formulario-pago{
+    width: 40%;
+    min-height: 50vh;
+}
+
+.resumen-compra{
+    width: 40%;
+    min-height: 50vh;
+}

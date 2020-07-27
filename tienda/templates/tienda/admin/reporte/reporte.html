@@ -1,0 +1,104 @@
+{% extends 'tienda/admin/base.html' %}
+{% load static %}
+{% block titulo %} REPORTE {% endblock titulo %}
+{% block reporte_active %} active {% endblock %}
+{% block custom_headers %}
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Exportar.js -->
+<script src="{% static 'js/exportar.js' %}"></script>
+<!-- semantic UI -->
+<link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+<!--Chart js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+{% endblock %}
+
+{% block custom_scripts %}
+<script>
+    $(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+                datasets: [{
+                    label: '# Distribución de ingresos por dias de la semana',
+                    data: {{ valores }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="sub-contenedor d-flex justify-content-center">
+    <!-- Acordion -->
+    <div id="accordion" role="tablist" class="col-lg-7">
+        <div class="card tarjeta">
+            <div class="card-header tarjeta-header d-flex justify-content-between" role="tab" id="headingOne">
+                <h4><strong>Reportes</strong></h4>
+                <a class="collapsed" data-toggle="collapse" href="#reporte" aria-expanded="true" aria-controls="reporte">
+                    <i class="icon fas fa-chevron-down"></i>
+                </a>
+            </div>
+            <div id="reporte" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-body">
+                    <!-- ====== CONTENIDO ====== -->
+                    {% include "tienda/components/messages.html" %}
+
+                    <h4>Distribución de los ingresos desde el día {{ comienzo }} al día {{ fin }}</h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            {% for day in stats.keys %} 
+                                <th scope="col">{{ day }}</th>
+                            {% endfor %}
+                            </tr>
+                      </thead>
+                      <tbody>
+                            <tr>
+                            {% for value in stats.values %}
+                                <th scope="row">{{ value }}</th>
+                            {% endfor %}
+                            </tr>
+                      </tbody>
+                    </table>
+                    <button class="btn btn-primary" onclick="exportar_tabla('reporte_logeos.csv')">Exportar</button>
+                    <canvas id="myChart" width="auto" height="100%"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
